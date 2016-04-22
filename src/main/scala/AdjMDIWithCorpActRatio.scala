@@ -30,8 +30,8 @@ object AdjMDIWithCorpActRatio {
         val lsCurOrLater = lsadjdtratio.filter(_._1.getMillis >= mdis.dt.getMillis)
         val ratioToApply = if (!lsCurOrLater.isEmpty) lsCurOrLater.head._2 else lsadjdtratio.last._2
 
-        val newbidpv = mdis.bidpv.map(tup => (multiplyWithRndg(tup._1, ratioToApply), multiplyWithRndg(tup._2, 1.0 / ratioToApply).toLong))
-        val newaskpv = mdis.askpv.map(tup => (multiplyWithRndg(tup._1, ratioToApply), multiplyWithRndg(tup._2, 1.0 / ratioToApply).toLong))
+        val newbidpv = mdis.bidpv.map(tup => if (Math.abs(tup._1 - SUtil.ATU_INVALID_PRICE) > SUtil.EPSILON) (multiplyWithRndg(tup._1, ratioToApply), multiplyWithRndg(tup._2, 1.0 / ratioToApply).toLong) else (SUtil.ATU_INVALID_PRICE, 0L))
+        val newaskpv = mdis.askpv.map(tup => if (Math.abs(tup._1 - SUtil.ATU_INVALID_PRICE) > SUtil.EPSILON) (multiplyWithRndg(tup._1, ratioToApply), multiplyWithRndg(tup._2, 1.0 / ratioToApply).toLong) else (SUtil.ATU_INVALID_PRICE, 0L))
 
         mdis.
           copy(tradeprice = multiplyWithRndg(mdis.tradeprice, ratioToApply)).
@@ -70,6 +70,8 @@ object AdjMDIWithCorpActRatio {
         val lsdatalines = scala.io.Source.fromFile(mdifile).getLines.toList
         val lsmdis = lsdatalines.map(DataFmtAdaptors.parseCashMDI(_)).filter(_ != None).map(_.get)
         val lsOutStr = lsmdis.map(x => applyCorpActAdjRatio(x, mapCorpActAdjRatio)).map(_.toString)
+
+        println(mdifile)
 
         val pw = new PrintWriter(new File(Config.output_folder + "/" + mdifile.getName))
         lsOutStr.foreach(x => { pw.write(x); pw.write('\n') })
