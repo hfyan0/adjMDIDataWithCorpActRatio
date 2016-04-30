@@ -1,7 +1,7 @@
 import AssemblyKeys._ 
 
 // Project name (artifact name in Maven)
-name := "adjMDIDataWithCorpActRatio"
+name := "adjDataWithCorpActRatio"
 
 // orgnization name (e.g., the package name of the project)
 organization := "org.nirvana.corpactmdi"
@@ -9,7 +9,7 @@ organization := "org.nirvana.corpactmdi"
 version := "1.0-SNAPSHOT"
 
 // project description
-description := "adjMDIDataWithCorpActRatio"
+description := "adjDataWithCorpActRatio"
 
 // Enables publishing to maven repo
 publishMavenStyle := true

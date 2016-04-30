@@ -17,11 +17,13 @@ object Config {
       val prop = new Properties()
       prop.load(new FileInputStream(propFileName))
 
-      mdi_data_folder = prop.getProperty("mdi_data_folder")
+      data_fmt = prop.getProperty("data_fmt")
+      data_folder = prop.getProperty("data_folder")
       output_folder = prop.getProperty("output_folder")
       corpActionRatioFile = prop.getProperty("corpActionRatioFile")
 
-      println(mdi_data_folder)
+      println(data_fmt)
+      println(data_folder)
       println(output_folder)
       println(corpActionRatioFile)
     }
@@ -37,7 +39,8 @@ object Config {
   //--------------------------------------------------
   // data
   //--------------------------------------------------
-  var mdi_data_folder = ""
+  var data_fmt = ""
+  var data_folder = ""
   var output_folder = ""
   var corpActionRatioFile = ""
 
