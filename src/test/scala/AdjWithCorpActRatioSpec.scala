@@ -30,11 +30,11 @@ class AdjWithCorpActRatioTest extends AssertionsForJUnit {
 
     val mdis1 = AdjWithCorpActRatio.applyCorpActAdjRatio(mdis, adjmap)
     assertEquals(mdis1.tradeprice, 80.2*1.2, 0.01)
-    assertEquals(mdis1.tradevolume, (1000.0/1.2).toLong, 0.01)
+    assertEquals(mdis1.tradevolume, (1000.0*Math.ceil(1/1.2)).toLong, 0.01)
     assertEquals(mdis1.bidpv(2)._1, 236.0*1.2, 0.01)
-    assertEquals(mdis1.bidpv(2)._2, (2.0/1.2).toLong, 0.01)
+    assertEquals(mdis1.bidpv(2)._2, (2.0*Math.ceil(1/1.2)).toLong, 0.01)
     assertEquals(mdis1.askpv(4)._1, 1238.0*1.2, 0.01)
-    assertEquals(mdis1.askpv(4)._2, (4.0/1.2).toLong, 0.01)
+    assertEquals(mdis1.askpv(4)._2, (4.0*Math.ceil(1/1.2)).toLong, 0.01)
   }
 
   @Test def testApplyCorpActAdjRatio2() {
@@ -53,11 +53,11 @@ class AdjWithCorpActRatioTest extends AssertionsForJUnit {
 
     val mdis1 = AdjWithCorpActRatio.applyCorpActAdjRatio(mdis, adjmap)
     assertEquals(mdis1.tradeprice, 80.2*1.2, 0.01)
-    assertEquals(mdis1.tradevolume, (1000.0/1.2).toLong, 0.01)
+    assertEquals(mdis1.tradevolume, (1000.0*Math.ceil(1/1.2)).toLong, 0.01)
     assertEquals(mdis1.bidpv(2)._1, 236.0*1.2, 0.01)
-    assertEquals(mdis1.bidpv(2)._2, (2.0/1.2).toLong, 0.01)
+    assertEquals(mdis1.bidpv(2)._2, (2.0*Math.ceil(1/1.2)).toLong, 0.01)
     assertEquals(mdis1.askpv(4)._1, 1238.0*1.2, 0.01)
-    assertEquals(mdis1.askpv(4)._2, (4.0/1.2).toLong, 0.01)
+    assertEquals(mdis1.askpv(4)._2, (4.0*Math.ceil(1/1.2)).toLong, 0.01)
   }
 
   @Test def testApplyCorpActAdjRatio3() {
@@ -76,11 +76,11 @@ class AdjWithCorpActRatioTest extends AssertionsForJUnit {
 
     val mdis1 = AdjWithCorpActRatio.applyCorpActAdjRatio(mdis, adjmap)
     assertEquals(mdis1.tradeprice, 80.2*0.2, 0.01)
-    assertEquals(mdis1.tradevolume, (1000.0/0.2).toLong, 0.01)
+    assertEquals(mdis1.tradevolume, (1000.0*Math.ceil(1/0.2)).toLong, 0.01)
     assertEquals(mdis1.bidpv(2)._1, 236.0*0.2, 0.01)
-    assertEquals(mdis1.bidpv(2)._2, (2.0/0.2).toLong, 0.01)
+    assertEquals(mdis1.bidpv(2)._2, (2.0*Math.ceil(1/0.2)).toLong, 0.01)
     assertEquals(mdis1.askpv(4)._1, 1238.0*0.2, 0.01)
-    assertEquals(mdis1.askpv(4)._2, (4.0/0.2).toLong, 0.01)
+    assertEquals(mdis1.askpv(4)._2, (4.0*Math.ceil(1/0.2)).toLong, 0.01)
   }
 
 

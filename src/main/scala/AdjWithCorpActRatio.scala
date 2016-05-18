@@ -30,12 +30,12 @@ object AdjWithCorpActRatio {
         val lsCurOrLater = lsadjdtratio.filter(_._1.getMillis >= mdis.dt.getMillis)
         val ratioToApply = if (!lsCurOrLater.isEmpty) lsCurOrLater.head._2 else lsadjdtratio.last._2
 
-        val newbidpv = mdis.bidpv.map(tup => if (Math.abs(tup._1 - SUtil.ATU_INVALID_PRICE) > SUtil.EPSILON) (multiplyWithRndg(tup._1, ratioToApply), multiplyWithRndg(tup._2, 1.0 / ratioToApply).toLong) else (SUtil.ATU_INVALID_PRICE, 0L))
-        val newaskpv = mdis.askpv.map(tup => if (Math.abs(tup._1 - SUtil.ATU_INVALID_PRICE) > SUtil.EPSILON) (multiplyWithRndg(tup._1, ratioToApply), multiplyWithRndg(tup._2, 1.0 / ratioToApply).toLong) else (SUtil.ATU_INVALID_PRICE, 0L))
+        val newbidpv = mdis.bidpv.map(tup => if (Math.abs(tup._1 - SUtil.ATU_INVALID_PRICE) > SUtil.EPSILON) (multiplyWithRndg(tup._1, ratioToApply), multiplyWithRndg(tup._2, Math.ceil(1.0 / ratioToApply)).toLong) else (SUtil.ATU_INVALID_PRICE, 0L))
+        val newaskpv = mdis.askpv.map(tup => if (Math.abs(tup._1 - SUtil.ATU_INVALID_PRICE) > SUtil.EPSILON) (multiplyWithRndg(tup._1, ratioToApply), multiplyWithRndg(tup._2, Math.ceil(1.0 / ratioToApply)).toLong) else (SUtil.ATU_INVALID_PRICE, 0L))
 
         mdis.
           copy(tradeprice = multiplyWithRndg(mdis.tradeprice, ratioToApply)).
-          copy(tradevolume = multiplyWithRndg(mdis.tradevolume, 1.0 / ratioToApply).toLong).
+          copy(tradevolume = multiplyWithRndg(mdis.tradevolume, Math.ceil(1.0 / ratioToApply)).toLong).
           copy(bidpv = newbidpv).
           copy(askpv = newaskpv)
       }
@@ -65,7 +65,7 @@ object AdjWithCorpActRatio {
               multiplyWithRndg(ohlc.priceBar.h, ratioToApply),
               multiplyWithRndg(ohlc.priceBar.l, ratioToApply),
               multiplyWithRndg(ohlc.priceBar.c, ratioToApply),
-              multiplyWithRndg(ohlc.priceBar.v, 1.0 / ratioToApply).toLong
+              multiplyWithRndg(ohlc.priceBar.v, Math.ceil(1.0 / ratioToApply)).toLong
             )
           }
           else {
